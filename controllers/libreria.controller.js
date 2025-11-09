@@ -1,4 +1,4 @@
-// libreria.controller.js
+
 import Libro from '../models/libreria.model.js'; // Importamos el modelo correcto
 import mongoose from 'mongoose';
 
@@ -6,7 +6,6 @@ import mongoose from 'mongoose';
 export const obtenerTodosLosLibros = async (req, res) => {
     console.log('Obtiene todos los libros');
     try {
-        // Excluir el campo __v (versión)
         const libros = await Libro.find({}, { __v: 0 }); 
         
         if (libros.length === 0) {
@@ -25,12 +24,10 @@ export const obtenerTodosLosLibros = async (req, res) => {
     }
 };
 
-// [GET] Obtener libro por ID
 export const obtenerLibroPorId = async (req, res) => {
     console.log('Libro por ID');
     const id = req.params.id;
     try {
-        // 1. Validar que el ID sea un formato válido de MongoDB ObjectId
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({
                 msg: 'ID de libro no válido'
@@ -54,15 +51,12 @@ export const obtenerLibroPorId = async (req, res) => {
         });
     }
 };
-
-// [POST] Crear un nuevo libro
 export const crearNuevoLibro = async (req, res) => {
     console.log('POST LIBRO');
     const body = req.body;
-    const libro = new Libro(body); // Crea una nueva instancia del modelo
+    const libro = new Libro(body); 
     
     try {
-        // Mongoose puede validar síncronamente antes de guardar
         const validationError = libro.validateSync();
         
         if (validationError) {
@@ -72,14 +66,13 @@ export const crearNuevoLibro = async (req, res) => {
             });
         }
         
-        await libro.save(); // Guarda el documento en la base de datos
+        await libro.save(); 
         return res.status(201).json({
             msg: 'Libro creado con éxito',
             libro
         });
 
     } catch (error) {
-        // Maneja errores de duplicación de clave (si hay un campo unique) u otros errores de Mongoose
         return res.status(500).json({
             msg: 'Error al guardar el libro',
             error: error.message
@@ -87,10 +80,9 @@ export const crearNuevoLibro = async (req, res) => {
     }
 };
 
-// [PUT] Actualizar un libro existente
 export const actualizarLibro = async (req, res) => {
     const id = req.params.id;
-    const body = req.body; // Datos a actualizar
+    const body = req.body; 
     
     try {
         if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -99,8 +91,6 @@ export const actualizarLibro = async (req, res) => {
             });
         }
         
-        // new: true retorna el documento actualizado
-        // runValidators: true ejecuta las validaciones del esquema antes de actualizar
         const libroActualizado = await Libro.findByIdAndUpdate(id, body, { new: true, runValidators: true });
         
         if (!libroActualizado) {
@@ -119,8 +109,6 @@ export const actualizarLibro = async (req, res) => {
         });
     }
 };
-
-// [DELETE] Eliminar un libro
 export const eliminarLibro = async (req, res) => {
     console.log('DELETE LIBRO');
     const id = req.params.id;
