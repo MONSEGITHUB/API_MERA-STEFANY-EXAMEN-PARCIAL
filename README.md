@@ -1,4 +1,4 @@
-API_LIBRERIA
+API_LIBRERIA EXAMEN
 
 Consiste en un sistema de gestión de librería, elaborado con un backend funcional conectado a una base de datos en MongoDB.
 
