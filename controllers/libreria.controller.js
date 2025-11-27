@@ -1,21 +1,20 @@
-
-import Libro from '../models/libreria.model.js'; // Importamos el modelo correcto
+import Libro from '../models/libreria.model.js';
 import mongoose from 'mongoose';
 
-// [GET] Obtener todos los libros
+
 export const obtenerTodosLosLibros = async (req, res) => {
     console.log('Obtiene todos los libros');
     try {
         const libros = await Libro.find({}, { __v: 0 }); 
         
         if (libros.length === 0) {
-            return res.status(404).json({
-                msg: 'No se encontraron libros'
-            });
+          
+            return res.status(200).json([]);
         }
-        return res.status(200).json({
-            libros
-        });
+        
+       
+        return res.status(200).json(libros);
+        
     } catch (error) {
         return res.status(500).json({
             msg: 'Error al obtener los libros',
@@ -23,6 +22,7 @@ export const obtenerTodosLosLibros = async (req, res) => {
         });
     }
 };
+
 
 export const obtenerLibroPorId = async (req, res) => {
     console.log('Libro por ID');
@@ -41,9 +41,10 @@ export const obtenerLibroPorId = async (req, res) => {
                 msg: 'Libro no encontrado'
             });
         }
-        return res.status(200).json({
-            libro
-        });
+
+        
+        return res.status(200).json(libro);
+        
     } catch (error) {
         return res.status(500).json({
             msg: 'Error al obtener el libro por ID',
@@ -51,6 +52,8 @@ export const obtenerLibroPorId = async (req, res) => {
         });
     }
 };
+
+
 export const crearNuevoLibro = async (req, res) => {
     console.log('POST LIBRO');
     const body = req.body;
@@ -67,6 +70,7 @@ export const crearNuevoLibro = async (req, res) => {
         }
         
         await libro.save(); 
+       
         return res.status(201).json({
             msg: 'Libro creado con éxito',
             libro
@@ -79,6 +83,7 @@ export const crearNuevoLibro = async (req, res) => {
         });
     }
 };
+
 
 export const actualizarLibro = async (req, res) => {
     const id = req.params.id;
@@ -98,17 +103,25 @@ export const actualizarLibro = async (req, res) => {
                 msg: 'Libro no encontrado para actualizar'
             });
         }
+       
         return res.status(200).json({
             msg: 'Libro actualizado con éxito',
             libro: libroActualizado
         });
     } catch (error) {
+        
+        if (error.name === 'ValidationError') {
+             const errorMessages = Object.values(error.errors).map(err => err.message);
+             return res.status(400).json({ errors: errorMessages });
+        }
         return res.status(500).json({
             msg: 'Error al actualizar el libro',
             error: error.message
         });
     }
 };
+
+
 export const eliminarLibro = async (req, res) => {
     console.log('DELETE LIBRO');
     const id = req.params.id;
@@ -127,7 +140,6 @@ export const eliminarLibro = async (req, res) => {
                 msg: 'Libro no encontrado para eliminar'
             });
         }
-        
         return res.status(200).json({
             msg: 'Libro eliminado con éxito',
             libro: libroEliminado

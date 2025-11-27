@@ -1,0 +1,58 @@
+/*
+TemplateMo 584 Pod Talk
+https://templatemo.com/tm-584-pod-talk
+*/
+
+/*---------------------------------------
+  CUSTOM PROPERTIES ( VARIABLES )             
+-----------------------------------------*/
+:root {
+--white-color:  #ffffff;               
+--primary-color: #f79927; /* CORREGIDO: Naranja/Amarillo para botones/elementos */
+--secondary-color:  #0066CC; /* Azul/Celeste principal */
+--section-bg-color:  #f0f8ff;
+--custom-btn-bg-color: #0066CC;
+--custom-btn-bg-hover-color: #f79927; /* Naranja/Amarillo en hover */
+--dark-color:  #000000;
+--p-color: #717275;
+--border-color: #7fffd4;
+--link-hover-color: #0066CC;
+--body-font-family: 'Montserrat', sans-serif;
+--title-font-family:'Sono', sans-serif;
+
+/* ... el resto de variables de tamaño de fuente se mantienen ... */
+}
+
+/* ... Código CSS previo ... */
+
+/*---------------------------------------
+  HERO SECTION (CORRECCIÓN CRÍTICA PARA EL FONDO CELESTE)              
+-----------------------------------------*/
+.hero-section {
+    min-height: 250px;
+    
+    /* Degradado forzado para el efecto azul/celeste */
+    background: #0199fe;
+    background: linear-gradient(135deg, #0199fe 0%, #1754ff 100%);
+
+    /* Si tienes la imagen wavy-bg.png en la carpeta images/ descomenta la línea de abajo */
+    /* background-image: url('../images/wavy-bg.png'); */
+    
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-top: 100px;
+}
+
+/* ... El resto del código de la plantilla se mantiene igual ... */
+
+.site-header { /* ESTILO ORIGINAL DE ESTA SECCIÓN, ELIMINADO PARA USAR .hero-section */
+    background-image: none; 
+    min-height: 0;
+}
+
+/* El resto de estilos Responsivos, Navegación, etc., se mantienen */
+/* (Se omiten por brevedad, asumiendo que el resto de tu archivo es el original) */

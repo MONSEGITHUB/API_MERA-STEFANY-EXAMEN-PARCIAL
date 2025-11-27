@@ -1,4 +1,3 @@
-
 import mongoose, { Schema, model } from 'mongoose';
 
 const LibroSchema = new Schema({
@@ -7,7 +6,7 @@ const LibroSchema = new Schema({
         type: String,
         required: [true, 'El título del libro es obligatorio'],
         trim: true,
-        unique: true 
+        unique: true
     },
 
     autor: {
@@ -22,17 +21,23 @@ const LibroSchema = new Schema({
         min: [1000, 'El año debe ser un valor válido'],
         max: [new Date().getFullYear(), 'El año no puede ser futuro']
     },
-    generos: {
-        type: [String],
+
+    genero: {
+        type: String,
         required: false,
-        default: [] 
+        trim: true
     },
+      imagen: {
+        type: String,  
+        required: false,
+        trim: true
+ },
     disponible: {
         type: Boolean,
         default: true
     }
+
 }, {
-   
     timestamps: true 
 });
 
