@@ -2,7 +2,7 @@
 body {
     background: #f7f7f7;
 }
-
+/* Estilo para las tarjetas o contenedores que quiero resaltar */
 .card {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
